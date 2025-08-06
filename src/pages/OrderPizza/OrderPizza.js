@@ -379,7 +379,7 @@ export const BottomSection = styled.div`
       flex: 0 0 200px; 
   }
 `;
-export const FormStyled = styled.div`
+export const FormStyled = styled.form`
   width: 100%;
   max-width: 532px;
   display: flex;
