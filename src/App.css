@@ -40,3 +40,8 @@ html, body{
   margin: 0;
   padding: 0;
 }
+@media (max-width: 600px) {
+  .success-page footer {
+    display: none !important;
+  }
+}

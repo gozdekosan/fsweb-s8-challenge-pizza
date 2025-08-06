@@ -1,5 +1,5 @@
-import { useState} from 'react';
-import { NavLink,useHistory } from 'react-router-dom';
+import { useState } from 'react';
+import { NavLink, useHistory } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { FormGroup, Input, Label } from 'reactstrap';
 import axios from 'axios';
@@ -7,7 +7,7 @@ import {
   OrderPage, OrderHeader, Logo, OrderContent, ContentHeading,
   FoodContent, FoodPrice, FoodRating, FoodComments, QuantityControls,
   WarningButton, QuantityDisplay, OrderSummaryBox, OrderRow, TotalPrice,
-  OrderButton, FormStyled,OrderNav,
+  OrderButton, FormStyled, OrderNav,
   FoodDescription,
   BottomSection
 } from './OrderPizza.js';
@@ -17,7 +17,7 @@ const materials = [
   'Sucuk', 'Jalapeño', 'Sarımsak', 'Biber', 'Ançüez', 'Ananas', 'Kabak'
 ];
 
-function OrderPizza() {
+function OrderPizza({ setOrderData }) {
   const history = useHistory();
 
   const [size, setSize] = useState('');
@@ -27,7 +27,6 @@ function OrderPizza() {
   const [note, setNote] = useState('');
   const [quantity, setQuantity] = useState(1);
   const [nameError, setNameError] = useState('');
-  const [responseData, setResponseData] = useState(null);
 
   const basePrice = 85.5;
   const materialPrice = 5;
@@ -51,15 +50,6 @@ function OrderPizza() {
   };
 
   const handleSubmit = async (event) => {
-    console.log({
-  name,
-  nameLength: name.length,
-  size,
-  dough,
-  selectedMaterials,
-  selectedCount: selectedMaterials.length,
-  isFormValid
-});
     event.preventDefault();
     if (!isFormValid) {
       alert('Lütfen tüm alanları eksiksiz ve doğru şekilde doldurun.');
@@ -77,23 +67,28 @@ function OrderPizza() {
     };
 
     try {
-  const response = await axios.post(
-    'https://reqres.in/api/pizza',
-    payload,
-    {
-      headers: {
-        'Content-Type': 'application/json',
-        'x-api-key': 'reqres-free-v1'
-      }
+      const response = await axios.post(
+        'https://reqres.in/api/pizza',
+        payload,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'x-api-key': 'reqres-free-v1'
+          }
+        }
+      );
+
+      setOrderData({
+        ...payload,
+        response: response.data,
+      });
+
+      resetForm();
+      history.push('/success');
+    } catch (error) {
+      console.error('Sipariş gönderilemedi:', error);
+      alert('Sipariş gönderilirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.');
     }
-  );
-  console.log("Sipariş Özeti:", response.data);  
-  resetForm();
-  history.push('/success');
-} catch (error) {
-  console.error('Sipariş gönderilemedi:', error);
-  alert('Sipariş gönderilirken bir hata oluştu. Lütfen daha sonra tekrar deneyin.');
-}
   };
 
   const handleNameChange = (e) => {
@@ -126,7 +121,7 @@ function OrderPizza() {
     <OrderPage>
       <OrderHeader>
         <Logo src="/images/iteration-1-images/logo.svg" alt="Logo" />
-      <OrderNav>
+        <OrderNav>
           <NavLink to="/" activeClassName="active">Anasayfa</NavLink>
           <NavLink to="/orderpizza" activeClassName="active">Sipariş Oluştur</NavLink>
         </OrderNav>
@@ -150,7 +145,7 @@ function OrderPizza() {
             <p className="size-title">
               Boyut Seç <span style={{ color: 'red' }}>*</span>
             </p>
-            {['small', 'medium', 'large'].map((value) => (
+            {['S', 'M', 'L'].map((value) => (
               <Label key={value} className="d-block mb-2">
                 <Input
                   type="radio"
@@ -159,7 +154,7 @@ function OrderPizza() {
                   checked={size === value}
                   onChange={handleSizeChange}
                   aria-required="true"
-                /> {value === 'small' ? 'Küçük' : value === 'medium' ? 'Orta' : 'Büyük'}
+                /> {value === 'S' ? 'Küçük' : value === 'M' ? 'Orta' : 'Büyük'}
               </Label>
             ))}
           </div>
@@ -175,10 +170,10 @@ function OrderPizza() {
               aria-required="true"
             >
               <option value="" disabled hidden>Hamur kalınlığı</option>
-              <option value="super thin">Süpper İnce</option>
-              <option value="thin">İnce</option>
-              <option value="normal">Normal</option>
-              <option value="thick">Kalın</option>
+              <option value="Süpper İnce">Süpper İnce</option>
+              <option value="İnce">İnce</option>
+              <option value="Normal">Normal</option>
+              <option value="Kalın">Kalın</option>
             </Input>
           </div>
         </div>
