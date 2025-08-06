@@ -12,7 +12,10 @@ function Home() {
      <BannerSection>
         <Logo src="images/iteration-1-images/logo.svg" alt="Logo" />
         <Basliklar>
-          <P>kod acıktırır pizza, doyurur</P>
+          <P>
+           <span className="line1"><span>Kod</span> <span>acıktırır</span></span>
+            <span className="line2"><span>Pizza,</span> <span>doyurur</span></span>
+          </P>
           <Link to="/orderpizza">
             <BtnHungry>ACIKTIM</BtnHungry>
           </Link>
