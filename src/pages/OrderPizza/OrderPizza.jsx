@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { FormGroup, Input, Label } from 'reactstrap';
+import { FormGroup, Input} from 'reactstrap';
 import axios from 'axios';
 import {
   OrderPage, OrderHeader, Logo, OrderContent, ContentHeading,
@@ -9,8 +9,9 @@ import {
   WarningButton, QuantityDisplay, OrderSummaryBox, OrderRow, TotalPrice,
   OrderButton, FormStyled, OrderNav,
   FoodDescription,
-  BottomSection
+  BottomSection, HeaderImage, Wrapper, HiddenRadio, ButtonLabel, CheckboxLabel, CheckboxWrapper, HiddenCheckbox, CustomInput, CustomTextarea, StyledLabel
 } from './OrderPizza.js';
+import Footer from "../../components/Footer.jsx"; 
 
 const materials = [
   'Pepperoni', 'Sosis', 'Kanada Jambonu', 'Tavuk Izgara', 'Soğan', 'Domates', 'Mısır',
@@ -121,23 +122,25 @@ function OrderPizza({ setOrderData }) {
     <OrderPage>
       <OrderHeader>
         <Logo src="/images/iteration-1-images/logo.svg" alt="Logo" />
+      </OrderHeader>
+      <Wrapper>
+        <HeaderImage src="images/iteration-2-images/pictures/form-banner.png" alt="Banner" />
         <OrderNav>
           <NavLink to="/" activeClassName="active">Anasayfa</NavLink>
           <NavLink to="/orderpizza" activeClassName="active">Sipariş Oluştur</NavLink>
         </OrderNav>
-      </OrderHeader>
-
-      <OrderContent>
-        <ContentHeading>Position Absolute Acı Pizza</ContentHeading>
-        <FoodContent>
-          <FoodPrice>85.50₺</FoodPrice>
-          <FoodRating>4.9</FoodRating>
-          <FoodComments>(200)</FoodComments>
-        </FoodContent>
-        <FoodDescription>
-          Frontent Dev olarak hala position:absolute kullanıyorsan bu çok acı pizza tam sana göre. Pizza, domates, peynir ve genellikle çeşitli diğer malzemelerle kaplanmış, daha sonra geleneksel olarak odun ateşinde bir fırında yüksek sıcaklıkta pişirilen, genellikle yuvarlak, düzleştirilmiş mayalı buğday bazlı hamurdan oluşan İtalyan kökenli lezzetli bir yemektir..Küçük bir pizzaya bazen pizzetta denir.
-        </FoodDescription>
-      </OrderContent>
+        <OrderContent>
+          <ContentHeading>Position Absolute Acı Pizza</ContentHeading>
+          <FoodContent>
+            <FoodPrice>85.50₺</FoodPrice>
+            <FoodRating>4.9</FoodRating>
+            <FoodComments>(200)</FoodComments>
+          </FoodContent>
+          <FoodDescription>
+            Frontent Dev olarak hala position:absolute kullanıyorsan bu çok acı pizza tam sana göre. Pizza, domates, peynir ve genellikle çeşitli diğer malzemelerle kaplanmış, daha sonra geleneksel olarak odun ateşinde bir fırında yüksek sıcaklıkta pişirilen, genellikle yuvarlak, düzleştirilmiş mayalı buğday bazlı hamurdan oluşan İtalyan kökenli lezzetli bir yemektir. Küçük bir pizzaya bazen pizzetta denir.
+          </FoodDescription>
+        </OrderContent>
+      </Wrapper>
 
       <FormStyled onSubmit={handleSubmit} className="order-form">
         <div className="size-dough-container">
@@ -145,17 +148,19 @@ function OrderPizza({ setOrderData }) {
             <p className="size-title">
               Boyut Seç <span style={{ color: 'red' }}>*</span>
             </p>
-            {['S', 'M', 'L'].map((value) => (
-              <Label key={value} className="d-block mb-2">
-                <Input
-                  type="radio"
+            {['S', 'M', 'L'].map(value => (
+              <div key={value} style={{ display: 'inline-block' }}>
+                <HiddenRadio
+                  id={`size-${value}`}
                   name="size"
                   value={value}
                   checked={size === value}
                   onChange={handleSizeChange}
-                  aria-required="true"
-                /> {value === 'S' ? 'Küçük' : value === 'M' ? 'Orta' : 'Büyük'}
-              </Label>
+                />
+                <ButtonLabel htmlFor={`size-${value}`} checked={size === value}>
+                  {value === 'S' ? 'S' : value === 'M' ? 'M' : 'L'}
+                </ButtonLabel>
+              </div>
             ))}
           </div>
           <div className="dough-section">
@@ -182,24 +187,22 @@ function OrderPizza({ setOrderData }) {
         <p className="pizza-text">En az 4, en fazla 10 malzeme seçebilirsiniz.</p>
         <div className="materials-grid">
           {materials.map((material) => (
-            <FormGroup check key={material}>
-              <Label check for={`material-${material}`}>
-                <Input
-                  type="checkbox"
-                  id={`material-${material}`}
-                  value={material}
-                  checked={selectedMaterials.includes(material)}
-                  onChange={handleMaterialChange}
-                />{' '}
-                {material}
-              </Label>
-            </FormGroup>
+            <CheckboxLabel key={material} htmlFor={`material-${material}`}>
+              <HiddenCheckbox
+                id={`material-${material}`}
+                value={material}
+                checked={selectedMaterials.includes(material)}
+                onChange={handleMaterialChange}
+              />
+              <CheckboxWrapper />
+              <span>{material}</span>
+            </CheckboxLabel>
           ))}
         </div>
 
         <FormGroup className="name-section">
-          <Label for="name">İsminiz</Label>
-          <Input
+          <StyledLabel htmlFor="name">İsminiz</StyledLabel>
+          <CustomInput
             id="name"
             name="isim"
             placeholder="İsminizi giriniz"
@@ -213,12 +216,11 @@ function OrderPizza({ setOrderData }) {
         </FormGroup>
 
         <FormGroup className="note-section">
-          <Label for="note">Sipariş Notu</Label>
-          <Input
+          <StyledLabel htmlFor="note">Sipariş Notu</StyledLabel>
+          <CustomTextarea
             id="note"
             name="note"
             placeholder="Siparişine eklemek istediğin bir not var mı?"
-            type="textarea"
             value={note}
             onChange={handleNoteChange}
           />
@@ -247,6 +249,7 @@ function OrderPizza({ setOrderData }) {
           </OrderSummaryBox>
         </BottomSection>
       </FormStyled>
+      <Footer hideOnMobile />
     </OrderPage>
   );
 }

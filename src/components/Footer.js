@@ -2,10 +2,17 @@ import { createGlobalStyle } from 'styled-components';
 import styled from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
-  body {
-    font-family: 'Barlow', sans-serif;
+  *:not(footer, footer *) {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
+    background-color: white;
+    font-family: 'Barlow Condensed', sans-serif;
+  }
+
+  body {
+    width: 100%;
+    overflow-x: hidden;
   }
 `;
 
@@ -18,7 +25,7 @@ export const FooterSection = styled.footer`
     $hideOnMobile &&
     `
     @media (max-width: 600px) {
-      display: none;
+      display: none !important;
     }
   `}
 `;

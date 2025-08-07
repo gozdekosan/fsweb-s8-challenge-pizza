@@ -1,6 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
 import styled from 'styled-components';
-
 export const GlobalStyle = createGlobalStyle`
   * {
     margin: 0;
@@ -29,7 +28,7 @@ export const OrderPage = styled.div`
 export const OrderHeader = styled.header`
   background-color: #CE2829;
   width: 100vw;
-  height: 207px;
+  height: 138px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,54 +45,59 @@ export const OrderNav = styled.nav`
   display: flex;
   gap: 10px;
   text-align: left;
+  margin: 16px auto;
+  max-width: 532px;
+  width: 100%;
+  padding: 0 16px;
 
   a {
     position: relative;
-    color: #FFFFFF;
     font-size: 16px;
-    font-weight: 400;
+    font-weight: 500;
     text-decoration: none;
     padding: 0 10px;
+    color: #5F5F5F;
 
     &:not(:last-child)::after {
       content: '-';
       position: absolute;
       right: -5px;
-      color: #FFFFFF;
+      color: #5F5F5F;
     }
 
-    &.order-link {
-      font-weight: 900;
+    &[href="/"] {
+      color: #5F5F5F; 
+      font-weight: 500;
     }
-  }
 
-  @media (min-width: 601px) {
-    position: absolute;
-    bottom: 10px;
-    left: 20px;
+    &[href="/orderpizza"] {
+      color: #5F5F5F;
+      font-weight: 500;
+
+      &.active {
+        color: #CE2829; 
+        font-weight: 900;
+      }
+    }
   }
 
   @media (max-width: 600px) {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
     gap: 6px;
     padding: 0 10%;
-    margin-top: 8px;
+    margin: 8px auto;
 
     a {
       font-size: 12px;
       padding: 0 6px;
 
       &:not(:last-child)::after {
-        content: '-';
         right: -3px;
       }
     }
   }
 
   @media (min-width: 601px) and (max-width: 900px) {
-    left: 16px;
+    padding: 0 16px;
   }
 `;
 
@@ -110,19 +114,30 @@ export const Logo = styled.img`
   }
 `;
 
+export const Wrapper = styled.div`
+  width: 100%;
+  background-color: #FAF7F2;
+
+  @media (max-width: 600px) {
+    padding-top: 16px;
+    padding-bottom: 0;
+  }
+`;
+
 export const OrderContent = styled.div`
   width: 100%;
   max-width: 532px;
-  margin: 40px auto;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 40px;
   align-items: center;
   padding: 0 16px;
+  background-color: #FAF7F2;
 
   @media (max-width: 600px) {
     max-width: 100%;
-    margin: 16px auto;
+    margin: 0 auto;
     gap: 16px;
     padding: 0 10%;
   }
@@ -138,6 +153,20 @@ export const ContentHeading = styled.h1`
 
   @media (max-width: 600px) {
     font-size: 20px;
+    padding: 0 10%;
+  }
+`;
+
+export const HeaderImage = styled.img`
+  width: 500px;
+  height: 250px;
+  object-fit: contain;
+  display: block;
+  margin: 0 auto;
+  
+  @media (max-width: 600px) {
+    width: 100%;
+    height: auto;
     padding: 0 10%;
   }
 `;
@@ -220,7 +249,6 @@ export const StyledTextarea = styled.textarea`
   resize: vertical;
   margin-bottom: 10px; 
   
- 
   &:after {
     content: '';
     display: block;
@@ -298,6 +326,7 @@ export const OrderSummaryBox = styled.div`
   padding: 30px;
   flex: 1;
   margin-left: 20px;
+  background-color: #FAF7F2;
 
   @media (max-width: 600px) {
     padding: 15px;
@@ -377,8 +406,10 @@ export const BottomSection = styled.div`
 
     ${OrderButton} {
       flex: 0 0 200px; 
+    }
   }
 `;
+
 export const FormStyled = styled.form`
   width: 100%;
   max-width: 532px;
@@ -386,6 +417,11 @@ export const FormStyled = styled.form`
   flex-direction: column;
   gap: 20px;
   padding: 0 16px;
+  margin-bottom: 40px;
+
+  @media (max-width: 600px) {
+    margin-bottom: 24px;
+  }
 
   .size-title {
     font-size: 16px;
@@ -393,7 +429,6 @@ export const FormStyled = styled.form`
     font-weight: 600;
     color: black;
     margin-bottom: 10px;
-
   }
 
   .size-dough-container {
@@ -433,6 +468,15 @@ export const FormStyled = styled.form`
     font-weight: 600;
     color: #292929;
     margin-bottom: 10px;
+  }
+
+  .dough-section select {
+    background-color: #FAF7F2;
+    border: 1px solid #ccc;
+    color: #292929;
+    padding: 8px;
+    border-radius: 4px;
+    appearance: none;
   }
 
   .materials-grid {
@@ -476,13 +520,18 @@ export const FormStyled = styled.form`
       padding: 0 10%;
     }
   }
+
   .pizza-text {
     color: #5F5F5F;
     font-size: 16px;
     font-family: 'Barlow Condensed', sans-serif;
+
     @media (max-width: 600px) {
       font-size: 20px;
-      padding: 0 10%;}
+      padding: 0 10%;
+    }
+  }
+
   .name-section {
     margin-top: 20px;
     font-weight: 600;
@@ -492,11 +541,10 @@ export const FormStyled = styled.form`
       padding: 0 10%;
     }
   }
-  
+
   .note-section {
     position: relative;
     margin-top: 20px;
-    padding-bottom: 30px;
     font-weight: 600;
 
     textarea {
@@ -507,38 +555,160 @@ export const FormStyled = styled.form`
       border: 1px solid #D9D9D9;
       border-radius: 8px;
       resize: vertical;
-      margin-bottom: 10px; 
+      background-color: #FAF7F2;
     }
 
     &:after {
       content: '';
       position: absolute;
-      bottom: 0;
+      bottom: -10px;
       left: 0;
       width: 100%;
       height: 1px;
       background-color: #5F5F5F80;
-      margin-top: 10px; 
     }
 
     @media (max-width: 600px) {
       margin-top: 12px;
-      padding-bottom: 20px; 
       padding: 0 10%;
 
       textarea {
         padding: 10px;
         font-size: 14px;
-        margin-bottom: 40px; 
       }
 
       &:after {
-        margin-top: 20px;
+        bottom: -8px;
       }
     }
   }
 
   .note-section textarea::placeholder {
     color: #5F5F5F;
+  }
+`;
+
+export const HiddenRadio = styled.input.attrs({ type: 'radio' })`
+  display: none;
+`;
+
+export const ButtonLabel = styled.label`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background-color: ${props => (props.checked ? '#FFEECC' : '#FAF7F2')};
+  color: #333;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  user-select: none;
+  border: 2px solid transparent;
+  transition: background-color 0.3s, border-color 0.3s;
+  margin-right: 8px;
+  text-align: center;
+
+  &:hover {
+    background-color: #f7ead4;
+  }
+`;
+
+export const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
+  display: none;
+`;
+
+export const CheckboxWrapper = styled.span`
+  display: inline-flex;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  background-color: #FAF7F2;
+  border-radius: 6px;
+  position: relative;
+  cursor: pointer;
+  flex-shrink: 0;
+
+  ${HiddenCheckbox}:checked + & {
+    background-color: #FDC913;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 14px;
+      top: 11px;
+      width: 10px;
+      height: 18px;
+      border: solid black;
+      border-width: 0 3px 3px 0;
+      transform: rotate(45deg);
+    }
+  }
+`;
+
+export const CheckboxLabel = styled.label`
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  color: #5F5F5F;
+  user-select: none;
+
+  @media (max-width: 600px) {
+    font-size: 20px;
+    gap: 8px;
+  }
+
+  ${CheckboxWrapper} {
+    order: 1;
+  }
+
+  span {
+    order: 2;
+  }
+`;
+
+export const StyledLabel = styled.label`
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  font-size: 16px;
+`;
+
+export const CustomInput = styled.input`
+  width: 100%;
+  background-color: #FAF7F2 !important;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px;
+  color: #292929;
+  box-sizing: border-box;
+
+  &:focus {
+    outline: none;
+    border-color: #555;
+  }
+`;
+
+export const CustomTextarea = styled.textarea`
+  width: 100%;
+  background-color: #FAF7F2 !important;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 16px;
+  color: #292929;
+  box-sizing: border-box;
+  min-height: 100px;
+
+  &:focus {
+    outline: none;
+    border-color: #555;
   }
 `;

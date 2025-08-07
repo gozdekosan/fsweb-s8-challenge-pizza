@@ -12,6 +12,10 @@ export const SuccessPage = styled.div`
   color: white;
   box-sizing: border-box;
 
+  @media (max-width: 600px) {
+    padding-top: 10%;
+  }
+
   > main {
     flex: 1;
     width: 100%;
@@ -32,7 +36,8 @@ export const Logo = styled.img`
   @media (max-width: 600px) {
     width: 400px;
     height: 55px;
-    margin-bottom: 25px; 
+    margin-top: 30px;
+    margin-bottom: 70px;
   }
 `;
 
@@ -40,11 +45,11 @@ export const Subtitle = styled.p`
   font-family: 'Satisfy', cursive;
   font-size: 32px;
   color: #fdc913;
-  margin: 20px 0 12px 0; 
+  margin: 20px 0 12px 0;
   font-style: italic;
 
   @media (max-width: 600px) {
-    margin-top: 30px; 
+    margin-top: 30px;
   }
 `;
 
@@ -61,18 +66,22 @@ export const Heading = styled.h1`
   text-align: center;
   border-bottom: 2px solid white;
 
- 
   span {
     white-space: nowrap;
   }
 
   @media (max-width: 600px) {
-    border-bottom: none; 
+    padding-top: 20%;
+    font-size: 72px;
+    line-height: 1.2;
+    max-width: 80%;
+    margin: 0 auto;
+    overflow-wrap: break-word;
+    border-bottom: none;
     span {
       display: block;
       white-space: normal;
     }
-
     margin: 20px auto 20px;
   }
 `;
@@ -131,6 +140,7 @@ export const OrderTotalInfo = styled.div`
   font-family: 'Barlow Condensed', sans-serif;
   color: white;
   width: 200px;
+
   @media (max-width: 600px) {
     display: none;
   }
@@ -167,5 +177,3 @@ export const OrderTotalBox = styled.div`
     display: none;
   }
 `;
-
-
