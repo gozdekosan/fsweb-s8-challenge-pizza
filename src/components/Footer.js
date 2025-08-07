@@ -1,6 +1,6 @@
-
 import { createGlobalStyle } from 'styled-components';
 import styled from 'styled-components';
+
 export const GlobalStyle = createGlobalStyle`
   body {
     font-family: 'Barlow', sans-serif;
@@ -23,7 +23,6 @@ export const FooterSection = styled.footer`
   `}
 `;
 
-
 export const FooterItem = styled.div`
   display: flex;
   width: 90%;
@@ -31,10 +30,13 @@ export const FooterItem = styled.div`
   justify-content: space-between;
   margin: 0 auto;
 
-  @media (max-width: 768px) {
+  @media (max-width: 600px) {
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start; 
+    justify-content: flex-start;
+    padding-left:16px;
   }
+
 `;
 
 export const FooterLeft = styled.div`
@@ -43,10 +45,11 @@ export const FooterLeft = styled.div`
   width: 60%;
   color: white;
 
-  @media (max-width: 768px) {
+  @media (max-width: 600px) {
     width: 100%;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start; 
+    justify-content: flex-start;
   }
 `;
 
@@ -55,10 +58,12 @@ export const IletisimSection = styled.div`
   flex-direction: column;
   align-items: flex-start;
   width: 50%;
-  text-align:left;
-  @media (max-width: 768px) {
+  text-align: left;
+
+  @media (max-width: 600px) {
     width: 100%;
-    align-items: center;
+    align-items: flex-start;
+    text-align: left;
   }
 `;
 
@@ -67,7 +72,7 @@ export const Logo = styled.img`
   height: 100px;
   margin-bottom: 30px;
 
-  @media (max-width: 768px) {
+  @media (max-width: 600px) {
     width: 200px;
     height: auto;
   }
@@ -101,13 +106,13 @@ export const MenuSection = styled.div`
   display: flex;
   flex-direction: column;
   width: 40%;
-  text-align:left;
-  
+  text-align: left;
 
   @media (max-width: 768px) {
     width: 100%;
-    align-items: center;
+    align-items: flex-start; 
     margin-top: 40px;
+    text-align: left;
   }
 
   h2 {
@@ -116,6 +121,7 @@ export const MenuSection = styled.div`
     font-weight: 500;
     color: #FFFFFF;
     margin-bottom: 30px;
+    text-align: left;
   }
 
   ul {
@@ -125,6 +131,7 @@ export const MenuSection = styled.div`
     line-height: 32.4px;
     font-weight: 400;
     color: #FFFFFF;
+    text-align: left;
   }
 
   li {
@@ -138,9 +145,11 @@ export const SocialSection = styled.div`
   width: 30%;
   margin-bottom: 50px;
 
+
   @media (max-width: 768px) {
     width: 100%;
-    align-items: center;
+    align-items: flex-start;  
+    padding-right:40%;
   }
 
   h2 {
@@ -149,29 +158,36 @@ export const SocialSection = styled.div`
     font-weight: 500;
     color: #FFFFFF;
     margin-bottom: 30px;
-    margin-left: 0; 
+    margin-left: 0;
+    text-align: left;
   }
 `;
 
 export const SocialImageGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  width: 300px;
-
+  gap: 5px; 
+  width: 100%; 
+  margin: 0;
+  padding: 0; 
   @media (max-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: flex-start; 
     width: 100%;
-    justify-items: center;
+    gap: 5px;
+    margin: 0 !important;
+  padding: 0 !important;
   }
 `;
 
 export const SocialImage = styled.img`
-  width: 90px;
+  width: 100%; 
+  max-width: 90px; 
   height: 90px;
   border-radius: 5px;
   object-fit: cover;
 `;
+
 
 export const FooterBorder = styled.div`
   width: 100%;
@@ -193,6 +209,6 @@ export const Copyright = styled.div`
   text-align: left;
 
   @media (max-width: 768px) {
-    text-align: center;
+    text-align: left;
   }
 `;

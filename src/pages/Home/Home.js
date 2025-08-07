@@ -29,7 +29,7 @@ export const BannerSection = styled.header`
   padding-top: 40px;
 
   @media (max-width: 600px) {
-    height: 100vh;
+    height: 100%;
     padding-top: 20px;
   }
 `;
