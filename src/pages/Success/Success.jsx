@@ -13,6 +13,7 @@ import {
 } from "./Success.js";
 import Footer from "../../components/Footer.jsx";
 
+
 export default function Success({ orderData }) {
   if (!orderData) {
     return (
@@ -25,7 +26,7 @@ export default function Success({ orderData }) {
       </SuccessPage>
     );
   }
-
+ 
   return (
     <SuccessPage className="success-page">
       <main>

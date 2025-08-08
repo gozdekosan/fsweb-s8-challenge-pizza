@@ -31,7 +31,7 @@ function OrderPizza({ setOrderData }) {
 
   const basePrice = 85.5;
   const materialPrice = 5;
-  const materialsTotal = selectedMaterials.length * materialPrice;
+  const materialsTotal = selectedMaterials.length * materialPrice * quantity;
   const totalPrice = (basePrice + materialsTotal) * quantity;
 
   const isFormValid =
@@ -228,21 +228,22 @@ function OrderPizza({ setOrderData }) {
 
         <BottomSection>
           <QuantityControls>
-            <WarningButton type="button" onClick={handleDecrease}>-</WarningButton>
-            <QuantityDisplay>{quantity}</QuantityDisplay>
-            <WarningButton type="button" onClick={handleIncrease}>+</WarningButton>
+               <WarningButton type="button" onClick={handleDecrease} data-testid="btn-decrease">-</WarningButton>
+              <QuantityDisplay data-testid="quantity-display">{quantity}</QuantityDisplay>
+               <WarningButton type="button" onClick={handleIncrease} data-testid="btn-increase">+</WarningButton>
           </QuantityControls>
 
           <OrderSummaryBox>
             <h4>Sipariş Toplamı</h4>
             <OrderRow>
               <span>Seçimler</span>
-              <span>{(materialsTotal * quantity).toFixed(2)}₺</span>
+              <span data-testid="materials-total">{materialsTotal.toFixed(2)}₺</span>
             </OrderRow>
             <OrderRow>
               <span>Toplam</span>
-              <TotalPrice>{totalPrice.toFixed(2)}₺</TotalPrice>
+              <TotalPrice data-testid="total-price">{totalPrice.toFixed(2)}₺</TotalPrice>
             </OrderRow>
+
             <OrderButton type="submit" disabled={!isFormValid}>
               SİPARİŞ VER
             </OrderButton>
